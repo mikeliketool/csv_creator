@@ -1,4 +1,5 @@
 import sys
+from line_director import LineDirector
 
 
 def main():
@@ -11,11 +12,14 @@ def main():
         print(args)
         if len(args) == 2 and args[0] == '-filepath':
             filepath = args[1]
-            print(filepath)
+            line_director = LineDirector()
 
             with open(str(filepath)) as file:
                 while line := file.readline():
-                    print(line.rstrip())
+                    line = line_director.build_csv_line(line)
+                    if len(line) > 0:
+                        with open('output.csv', 'a') as the_file:
+                            the_file.write(line)
     except Exception as e:
         print(e)
 

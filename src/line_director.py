@@ -1,17 +1,19 @@
 from line_builder import LineBuilder
+from line_processor import LineProcessor
 
 
-class Director:
+class LineDirector:
     """
     The Director is only responsible for executing the building steps in a
     particular sequence.
     """
 
     def __init__(self):
-        self._builder = self.reset_builder()
+        self.builder = self.reset_builder()
+        self.line_processor = LineProcessor()
 
     def reset_builder(self):
-        self._builder = LineBuilder()
+        self.builder = LineBuilder()
 
-    def build_csv_line(self):
-        pass
+    def build_csv_line(self, line):
+        return line
