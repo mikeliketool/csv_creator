@@ -11,9 +11,10 @@ class LineProcessor:
             month = self.line[1:4]
             day = self.line[5:7]
 
-        if month in self.acceptable_month_values:
-            date = f"{month} "
-        if int(day) in self.acceptable_day_values:
-            date += day
+        try:
+            if str(month) in self.acceptable_month_values and int(day) in self.acceptable_day_values:
+                date = f"{month} {day}"
+        except Exception:
+            print('Could not process the date for this line')
 
         return date

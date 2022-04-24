@@ -9,11 +9,14 @@ class LineDirector:
     """
 
     def __init__(self):
-        self.builder = self.reset_builder()
-        self.line_processor = LineProcessor()
+        self.reset_builder()
 
     def reset_builder(self):
         self.builder = LineBuilder()
 
     def build_csv_line(self, line):
-        return line
+        self.reset_builder()
+        line_processor = LineProcessor(line)
+        date = line_processor.extract_date_from_line()
+        self.builder.add_date(date)
+        self.builder.add_transaction_value('')
