@@ -130,3 +130,6 @@ dmypy.json
 
 # output
 output.csv
+
+# setup files
+payment_identifiers.json
