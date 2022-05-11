@@ -17,6 +17,7 @@ class LineDirector:
     def build_csv_line(self, line):
         self.reset_builder()
         line_processor = LineProcessor(line)
-        date = line_processor.extract_date_from_line()
+        date = line_processor.get_date_from_line()
         self.builder.add_date(date)
+        date = line_processor.get_payment_identifier_from_line()
         self.builder.add_transaction_value('')
