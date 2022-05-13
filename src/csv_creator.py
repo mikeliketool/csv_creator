@@ -25,7 +25,7 @@ def main():
                     line_director.build_csv_line(line)
                     if len(line_director.builder.line) > 0:
                         with open('output.csv', 'a') as the_file:
-                            the_file.write(f'{line_director.builder.line} {line}')
+                            the_file.write(f'{line_director.builder.line}')
     except Exception as e:
         print(e)
 

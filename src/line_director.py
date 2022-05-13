@@ -15,7 +15,6 @@ class LineDirector:
         self.reset_builder()
         with open('payment_identifiers.json') as json_file:
             self.payment_identifiers = json.load(json_file)
-        print(self.payment_identifiers)
 
     def reset_builder(self):
         self.builder = LineBuilder()
@@ -23,6 +22,8 @@ class LineDirector:
     def build_csv_line(self, line):
         self.reset_builder()
         line_processor = LineProcessor(line, self.payment_identifiers)
+        line_processor.remove_quotes_from_line()
+        print(line_processor.line)
         date = line_processor.get_date_from_line()
         self.builder.add_date(date)
         payment_identifier = line_processor.get_payment_identifier_from_line()

@@ -12,6 +12,8 @@ class LineBuilder:
     def _add_string_to_line(self, input_string):
         if isinstance(input_string, str) and len(input_string) > 0:
             self._line += f"{input_string},"
+        else:
+            self.reset()
 
     def add_date(self, date_as_string):
         self._add_string_to_line(date_as_string)
