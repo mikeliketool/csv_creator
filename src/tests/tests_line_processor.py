@@ -3,11 +3,15 @@ import pytest
 from line_processor import LineProcessor
 
 
+mock_date = "Mar 14"
+highway_identifier = "HIGHWAY 407-ETR"
+
+
 class TestsLineProcessorExtractDateFromLine:
     def test_dates_as_expected(self):
-        line = '"Mar 14 somemore data"'
+        line = f'"{mock_date} somemore data"'
         line_processor = LineProcessor(line)
-        assert line_processor.get_date_from_line() == "Mar 14"
+        assert line_processor.get_date_from_line() == mock_date
 
     @pytest.mark.parametrize(
         'month',
@@ -29,7 +33,16 @@ class TestsLineProcessorExtractDateFromLine:
 
 
 class TestsLineProcessorExtractPaymentIdentifierFromLine:
+    mock_line = f'"{mock_date} {highway_identifier}"'
+
     def test_json_is_none(self):
-        line = '"Mar 14 HIGHWAY 407-ETR"'
-        line_processor = LineProcessor(line)
+        line_processor = LineProcessor(self.mock_line)
         assert line_processor.get_payment_identifier_from_line() == ""
+
+    def test_json_has_a_match(self):
+        line_processor = LineProcessor(self.mock_line, {highway_identifier: highway_identifier})
+        assert line_processor.get_payment_identifier_from_line() == highway_identifier
+
+    def test_json_does_not_have_a_match(self):
+        line_processor = LineProcessor(self.mock_line, {"Test": "Test"})
+        assert line_processor.get_payment_identifier_from_line() == ''

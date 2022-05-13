@@ -21,5 +21,7 @@ class LineProcessor:
         return date
 
     def get_payment_identifier_from_line(self):
-        payment_identifier = ''
-        return payment_identifier
+        for payment_identifier in self.payment_identifiers:
+            if payment_identifier in self.line:
+                return payment_identifier
+        return ''

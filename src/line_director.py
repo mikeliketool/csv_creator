@@ -2,6 +2,9 @@ from line_builder import LineBuilder
 from line_processor import LineProcessor
 
 
+import json
+
+
 class LineDirector:
     """
     The Director is only responsible for executing the building steps in a
@@ -10,14 +13,18 @@ class LineDirector:
 
     def __init__(self):
         self.reset_builder()
+        with open('payment_identifiers.json') as json_file:
+            self.payment_identifiers = json.load(json_file)
+        print(self.payment_identifiers)
 
     def reset_builder(self):
         self.builder = LineBuilder()
 
     def build_csv_line(self, line):
         self.reset_builder()
-        line_processor = LineProcessor(line)
+        line_processor = LineProcessor(line, self.payment_identifiers)
         date = line_processor.get_date_from_line()
         self.builder.add_date(date)
-        date = line_processor.get_payment_identifier_from_line()
+        payment_identifier = line_processor.get_payment_identifier_from_line()
+        self.builder.add_payment_identifier(payment_identifier)
         self.builder.add_transaction_value('')

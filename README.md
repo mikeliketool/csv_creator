@@ -16,7 +16,7 @@ It should have the following format:
 ```
 
 ### Running a make command to process the tabular output
-make filepath=~/folder/path.ext process_file
+make filepath=~/folder/path.csv process_file
 
 
 ### Run Tests

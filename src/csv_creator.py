@@ -15,7 +15,10 @@ def main():
         if len(args) == 2 and args[0] == '-filepath':
             filepath = args[1]
             line_director = LineDirector()
-            os.remove('output.csv')
+            try:
+                os.remove('output.csv')
+            except Exception:
+                print('File exists so nothing to remove')
 
             with open(str(filepath)) as file:
                 while line := file.readline():
